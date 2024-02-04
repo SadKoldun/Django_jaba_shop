@@ -5,6 +5,6 @@ app_name = 'goods'
 
 urlpatterns = [
 
-        path('jaba/', views.catalog, name='catalog'),
+        path('all/', views.catalog, name='catalog'),
 
 ]
