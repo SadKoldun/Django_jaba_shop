@@ -1,0 +1,156 @@
+[
+  {
+    "model": "goods.product",
+    "pk": 1,
+    "fields": {
+      "name": "Б жаба 1",
+      "slug": "zhaba-1",
+      "category": 1,
+      "description": "Жаба 1",
+      "price": "10.00",
+      "discount": "0.00",
+      "quantity": 6,
+      "image": ""
+    }
+  },
+  {
+    "model": "goods.product",
+    "pk": 2,
+    "fields": {
+      "name": "м жаба 2",
+      "slug": "zhaba-2",
+      "category": 3,
+      "description": "жаба 2",
+      "price": "30.00",
+      "discount": "0.00",
+      "quantity": 3,
+      "image": ""
+    }
+  },
+  {
+    "model": "goods.product",
+    "pk": 3,
+    "fields": {
+      "name": "Б жаба 3",
+      "slug": "zhaba-3",
+      "category": 1,
+      "description": "жаба 3",
+      "price": "60.00",
+      "discount": "4.00",
+      "quantity": 5,
+      "image": ""
+    }
+  },
+  {
+    "model": "goods.product",
+    "pk": 4,
+    "fields": {
+      "name": "М жаба 4",
+      "slug": "zhaba-4",
+      "category": 3,
+      "description": "жаба 4",
+      "price": "0.00",
+      "discount": "0.00",
+      "quantity": 0,
+      "image": ""
+    }
+  },
+  {
+    "model": "goods.product",
+    "pk": 5,
+    "fields": {
+      "name": "С жаба 5",
+      "slug": "zhaba-5",
+      "category": 2,
+      "description": "жаба 5",
+      "price": "0.00",
+      "discount": "0.00",
+      "quantity": 0,
+      "image": ""
+    }
+  },
+  {
+    "model": "goods.product",
+    "pk": 6,
+    "fields": {
+      "name": "С жаба 6",
+      "slug": "zhaba-6",
+      "category": 2,
+      "description": "жаба 6",
+      "price": "0.00",
+      "discount": "0.00",
+      "quantity": 0,
+      "image": ""
+    }
+  },
+  {
+    "model": "goods.product",
+    "pk": 7,
+    "fields": {
+      "name": "Б жаба 7",
+      "slug": "zhaba-7",
+      "category": 1,
+      "description": "жаба 8",
+      "price": "0.00",
+      "discount": "0.00",
+      "quantity": 0,
+      "image": ""
+    }
+  },
+  {
+    "model": "goods.product",
+    "pk": 8,
+    "fields": {
+      "name": "Б жаба 9",
+      "slug": "zhaba-9",
+      "category": 1,
+      "description": "жаба 9",
+      "price": "0.00",
+      "discount": "0.00",
+      "quantity": 0,
+      "image": ""
+    }
+  },
+  {
+    "model": "goods.product",
+    "pk": 9,
+    "fields": {
+      "name": "Б жаба 10",
+      "slug": "zhaba-10",
+      "category": 1,
+      "description": "жаба 10",
+      "price": "0.00",
+      "discount": "0.00",
+      "quantity": 0,
+      "image": ""
+    }
+  },
+  {
+    "model": "goods.product",
+    "pk": 10,
+    "fields": {
+      "name": "Б жаба 11",
+      "slug": "zhaba-11",
+      "category": 1,
+      "description": "жаба 11",
+      "price": "0.00",
+      "discount": "0.00",
+      "quantity": 0,
+      "image": ""
+    }
+  },
+  {
+    "model": "goods.product",
+    "pk": 11,
+    "fields": {
+      "name": "Б жаба 12",
+      "slug": "zhaba-12",
+      "category": 1,
+      "description": "жаба 12",
+      "price": "0.00",
+      "discount": "0.00",
+      "quantity": 0,
+      "image": ""
+    }
+  }
+]

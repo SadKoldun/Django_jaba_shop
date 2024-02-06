@@ -1,0 +1,26 @@
+[
+  {
+    "model": "goods.category",
+    "pk": 1,
+    "fields": {
+      "name": "Большие жабы",
+      "slug": "bolshie-zhaby"
+    }
+  },
+  {
+    "model": "goods.category",
+    "pk": 2,
+    "fields": {
+      "name": "Средние жабы",
+      "slug": "srednie-zhaby"
+    }
+  },
+  {
+    "model": "goods.category",
+    "pk": 3,
+    "fields": {
+      "name": "Малые жабы",
+      "slug": "malye-zhaby"
+    }
+  }
+]
