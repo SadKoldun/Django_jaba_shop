@@ -1,7 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from users.forms import UserLoginForm, UserRegistrationForm
-from django.contrib import auth
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from django.contrib import auth, messages
 
 
 # Create your views here.
@@ -24,6 +25,7 @@ def login(request):
     return render(request, 'users/login.html', context)
 
 
+@login_required
 def logout(request):
     auth.logout(request)
     return redirect(reverse('main:index'))
@@ -44,3 +46,19 @@ def registration(request):
         'form': form
     }
     return render(request, 'users/registration.html', context)
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        profile_form = UserProfileForm(data=request.POST, instance=request.user)
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request, f'Изменения профиля успешно сохранены')
+            return redirect(reverse('users:profile'))
+    else:
+        profile_form = UserProfileForm(instance=request.user)
+    context = {
+        "form": profile_form
+    }
+    return render(request, 'users/profile.html', context)

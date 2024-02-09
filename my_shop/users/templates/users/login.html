@@ -20,12 +20,16 @@
             <input type="text" id="id_username" value="{% if form.username.value %}{{form.username.value}}{% endif %}"
                    name="username" placeholder="Введите логин" class="form-control form-control-lg" />
             <label class="form-label" for="id_username">Логин</label>
+              {% if form.username.errors %}<div class="alert alert-dark" role="alert">
+            {{form.username.errors}}</div>{% endif %}
           </div>
 
           <div class="form-outline form-white mb-4">
             <input type="password" id="id_password"
                    name="password" placeholder="Введите пароль" class="form-control form-control-lg" />
             <label class="form-label" for="id_password">Пароль</label>
+              {% if form.password.errors %}<div class="alert alert-dark" role="alert">
+            {{form.password.errors}}</div>{% endif %}
           </div>
 
           <p class="small mb-4 pb-lg-2"><a class="text-white-50" href="#!">Забыли пароль?</a></p>
