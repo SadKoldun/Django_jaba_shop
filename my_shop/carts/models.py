@@ -33,4 +33,6 @@ class Cart(models.Model):
         return round(self.product.sell_price() * self.quantity, 2)
 
     def __str__(self):
-        return f'{self.user.username} | {self.product.name} | {self.quantity}'
+        if self.user:
+            return f'{self.user.username} | {self.product.name} | Количество: {self.quantity}'
+        return f'Без аутентификации | {self.product.name} | Количество: {self.quantity}'

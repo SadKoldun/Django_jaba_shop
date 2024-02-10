@@ -79,6 +79,11 @@
                         <li>
                             <a class="nav-link" href="{% url 'users:profile' %}">Личный кабинет</a>
                         </li>
+                        {% if user.is_superuser %}
+                        <li>
+                            <a class="nav-link" href="{% url 'admin:index' %}">Администрирование</a>
+                        </li>
+                        {% endif %}
                         <li>
                             <a class="nav-link" href="{% url 'users:logout' %}">Выход</a>
                         </li>
@@ -96,7 +101,7 @@
 
                             </i>
                             Корзина
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+<!--                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>-->
                         </a>
 
 <!--                    </form>-->

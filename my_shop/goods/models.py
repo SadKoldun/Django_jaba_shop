@@ -2,6 +2,9 @@ from django.db import models
 
 
 # Create your models here.
+from django.urls import reverse
+
+
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name='Название')
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, verbose_name='URL')
@@ -30,6 +33,9 @@ class Product(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
         ordering = ('id', )
+
+    def get_absolute_url(self):
+        return reverse('goods:product', kwargs={'product_slug':self.slug})
 
     def __str__(self):
         return f'Товар {self.name} | Количество: {self.quantity}'
