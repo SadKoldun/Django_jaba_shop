@@ -64,4 +64,4 @@ def create_order(request):
     context = {
         'form': form,
     }
-    return render(request, 'orders/create_order.html')
+    return render(request, 'orders/create_order.html', context)

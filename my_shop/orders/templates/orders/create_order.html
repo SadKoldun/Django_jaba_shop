@@ -61,7 +61,7 @@
 <!--        </form>-->
 <!--      </div>-->
       <div class="col-md-7 col-lg-8">
-        <h4 class="mb-3">Billing address</h4>
+        <h4 class="mb-3">Информация о покупателе:</h4>
         <form action="{% url 'orders:create_order' %}" method="post">
           {% csrf_token %}
           <div class="row g-3">
