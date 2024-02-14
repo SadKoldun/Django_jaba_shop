@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from carts.admin import UserCartsAdmin
+from orders.admin import OrderTabularAdmin
 from users.models import User
 
 
@@ -14,5 +15,5 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ['username', 'first_name', 'last_name']
 
     inlines = [
-        UserCartsAdmin,
+        UserCartsAdmin, OrderTabularAdmin
     ]
