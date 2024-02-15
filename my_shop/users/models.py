@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from goods.models import Product
+
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, blank=False, null=False)
@@ -14,3 +16,4 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
