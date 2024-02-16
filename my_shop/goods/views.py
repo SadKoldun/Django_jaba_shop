@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_list_or_404
-from goods.models import Category, Product
+from django.shortcuts import render, get_list_or_404, redirect
+from goods.models import Category, Product, Comment
 from django.core.paginator import Paginator
 # Create your views here.
 from goods.utils import q_search
+from goods.forms import CommentForm
 
 
 def catalog(request, cat_slug=None):
@@ -24,7 +25,7 @@ def catalog(request, cat_slug=None):
     if order_by and order_by != 'default':
         goods = goods.order_by(order_by)
 
-    paginator = Paginator(goods, per_page=4)
+    paginator = Paginator(goods, per_page=8)
     current_page = paginator.get_page(page)
     context = {
         'goods': current_page,
@@ -35,9 +36,25 @@ def catalog(request, cat_slug=None):
 def product(request, product_slug):
 
     product = Product.objects.get(slug=product_slug)
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            Comment.objects.create(
+                user=request.user,
+                product=product,
+                comment_text=comment_form.cleaned_data['comment_text']
+            )
 
+            return redirect(request.META['HTTP_REFERER'])
+    else:
+        comment_form = CommentForm()
+    comments = Comment.objects.filter(product=product)
     context = {
-        'product': product
+        'product': product,
+        'form': comment_form,
+        'comments': comments,
     }
     return render(request, 'goods/product.html', context)
+
+
 

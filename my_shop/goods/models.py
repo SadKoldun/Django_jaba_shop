@@ -4,6 +4,8 @@ from django.db import models
 # Create your models here.
 from django.urls import reverse
 
+from users.models import User
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name='Название')
@@ -43,3 +45,18 @@ class Product(models.Model):
     def sell_price(self):
 
         return round(self.price - self.price * self.discount / 100, 2)
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    product = models.ForeignKey(to=Product, verbose_name='Товар', on_delete=models.CASCADE)
+    comment_text = models.TextField(max_length=300, verbose_name='Текст комментария')
+    created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Дата комментария')
+
+    class Meta:
+        db_table = 'comment'
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+    def __str__(self):
+        return f'{self.user.username} | {self.comment_text[:30]} | {self.created_timestamp}'

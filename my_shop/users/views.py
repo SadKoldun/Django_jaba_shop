@@ -68,7 +68,7 @@ def registration(request):
 @login_required
 def profile(request):
     if request.method == 'POST':
-        profile_form = UserProfileForm(data=request.POST, instance=request.user)
+        profile_form = UserProfileForm(data=request.POST)
         if profile_form.is_valid():
             profile_form.save()
             messages.success(request, f'Изменения профиля успешно сохранены')
