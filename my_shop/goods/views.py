@@ -36,19 +36,26 @@ def catalog(request, cat_slug=None):
 def product(request, product_slug):
 
     product = Product.objects.get(slug=product_slug)
+    comments = Comment.objects.filter(product=product)
+
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             Comment.objects.create(
                 user=request.user,
                 product=product,
+                rating=comment_form.cleaned_data['rating'],
                 comment_text=comment_form.cleaned_data['comment_text']
+
             )
 
+            rate = comments.product_rate()
+            product.rate = rate
+            product.save()
             return redirect(request.META['HTTP_REFERER'])
     else:
         comment_form = CommentForm()
-    comments = Comment.objects.filter(product=product)
+
     context = {
         'product': product,
         'form': comment_form,
