@@ -13,7 +13,9 @@ def current_cart(request):
     return render(request, 'carts/main_cart.html', context)
 
 
-def add_cart(request, product_id):
+def add_cart(request):
+
+    product_id = request.POST.get('product_id')
     product = Product.objects.get(id=product_id)
 
     if request.user.is_authenticated:

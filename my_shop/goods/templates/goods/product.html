@@ -42,7 +42,9 @@
                         <p class="lead">{{product.description}}</p>
                         <div class="d-flex mb-5">
                             <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 3rem" />
-                            <a class="btn btn-outline-dark flex-shrink-0" href="{% url 'carts:add_cart' product.id %}">
+                            <a class="btn btn-outline-dark flex-shrink-0 add-to-cart" href="{% url 'carts:add_cart' %}"
+                               data-product-id="{{product.id}}">
+                                {% csrf_token %}
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </a>
@@ -62,10 +64,13 @@
 {% if not comments %}
             <h1 class="display-6 mt-5">Товар пока не имеет комментариев</h1>
             {% else %}
+          <section id="comments">
+
+          </section>
         <div class="card">
 
             {% for comment in comments %}
-          <div class="card-body">
+          <div class="card-body" id="comment_{{comment.id}}">
             <div class="d-flex flex-start align-items-center">
                 {% if comment.user.image %}
               <img class="rounded-circle shadow-1-strong me-3"
@@ -87,6 +92,7 @@
             </p>
 
           </div>
+
             <hr class="hr hr-blurry" />
             {% endfor %}
             {% endif %}
