@@ -56,6 +56,9 @@
 
     </div>
 <div class="col-md-6 mt-5">
+            {% if not orders %}
+                <h3 class="display-6" >У вас пока нет заказов, но вы всегда можете это исправить</h3>
+                {% else %}
             <div class="accordion" id="accordionExample">
 
                 {% for order in orders %}
@@ -101,7 +104,7 @@
                                 </div>
                             </div>
                 {% endfor %}
-
+                {% endif %}
                         </div>
                     </div>
         </div>

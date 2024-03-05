@@ -1,3 +1,6 @@
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+
 from goods.models import Product
 from carts.models import Cart
 from carts.utils import get_user_carts
@@ -37,13 +40,56 @@ def add_cart(request):
         else:
             Cart.objects.create(session_key=request.session.session_key, product=product, quantity=1)
 
-    return redirect(request.META['HTTP_REFERER'])
+    get_cart = get_user_carts(request)
+
+    cart_html = render_to_string(
+        "carts/main_cart.html",
+        {"carts": get_cart},
+        request=request)
+
+    return JsonResponse({'cart_html': cart_html})
 
 
-def change_cart(request, product_id):
-    pass
+# def change_cart(request):
+#     cart_id = request.POST.get('cart_id')
+#     quantity = request.POST.get('quantity')
+#
+#     cart = Cart.objects.get(id=cart_id)
+#
+#     cart.quantity = quantity
+#     cart.save()
+#     new_quantity = cart.quantity
+#
+#     get_cart = get_user_carts(request)
+#
+#     cart_html = render_to_string(
+#         "carts/main_cart.html",
+#         {"carts": get_cart},
+#         request=request)
+#
+#     response_data = {
+#         'cart_html': cart_html,
+#         'quantity': new_quantity,
+#     }
+#
+#     return JsonResponse(response_data)
 
 
-def del_cart(request, cart_id):
-    Cart.objects.filter(id=cart_id).delete()
-    return redirect(request.META['HTTP_REFERER'])
+def del_cart(request):
+
+    cart_id = request.POST.get('cart_id')
+    cart = Cart.objects.get(id=cart_id)
+
+    quantity = cart.quantity
+    cart.delete()
+
+    user_cart = get_user_carts(request)
+    cart_html = render_to_string(
+        "carts/main_cart.html", {"carts": user_cart}, request=request)
+
+    response_data = {
+        "cart_html": cart_html,
+        "quantity_deleted": quantity,
+    }
+
+    return JsonResponse(response_data)

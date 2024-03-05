@@ -10877,3 +10877,21 @@ textarea.form-control-lg {
   -webkit-animation-name: slideIn;
   animation-name: slideIn;
 }
+
+.modal-custom {
+  --bs-modal-border-radius: 0;
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: 40vw;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
