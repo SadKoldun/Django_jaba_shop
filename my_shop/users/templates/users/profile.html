@@ -16,99 +16,106 @@
                     {% csrf_token %}
                     {% if user.image %}
                     <img src="{{ user.image.url }}" alt="Аватар пользователя" class="img-thumbnail"
-                        style="max-width: 250px; max-height: 250px">
+                         style="max-width: 250px; max-height: 250px">
                     {% else %}
                     <img src="{% static 'images/image_not_found.png' %}" alt="Аватар пользователя" class="img-thumbnail"
-                        style="max-width: 250px; max-height: 250px">
+                         style="max-width: 250px; max-height: 250px">
                     {% endif %}
-                <div class="row mt-2">
-                    <div class="col-md-6">
-                        <label for="id_first_name" class="labels">Имя</label>
-                        <input type="text" class="form-control" id="id_first_name" name="first_name" value="{{form.first_name.value}}" placeholder="First name">
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label for="id_first_name" class="labels">Имя</label>
+                            <input type="text" class="form-control" id="id_first_name" name="first_name"
+                                   value="{{form.first_name.value}}" placeholder="First name">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_last_name" class="labels">Фамилия</label>
+                            <input type="text" id="id_last_name" name="last_name" class="form-control"
+                                   value="{{form.last_name.value}}" placeholder="Last name">
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="id_last_name" class="labels">Фамилия</label>
-                        <input type="text" id="id_last_name" name="last_name" class="form-control" value="{{form.last_name.value}}" placeholder="Last name">
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <label for="id_username" class="labels">Имя пользователя</label>
-                        <input id="id_username" type="text" class="form-control" placeholder="enter username" name="username" value="{{form.username.value}}">
-                    </div>
-                    <div class="col-md-12 mt-2">
-                        <label for="id_email" class="labels">Почта</label>
-                        <input id="id_email" type="text" class="form-control" placeholder="enter email" name="email" value="{{form.email.value}}">
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="id_username" class="labels">Имя пользователя</label>
+                            <input id="id_username" type="text" class="form-control" placeholder="enter username"
+                                   name="username" value="{{form.username.value}}">
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <label for="id_email" class="labels">Почта</label>
+                            <input id="id_email" type="text" class="form-control" placeholder="enter email" name="email"
+                                   value="{{form.email.value}}">
+                        </div>
+
                     </div>
 
-                </div>
-
-                <div class="mt-5 text-center">
-                    <button class="btn btn-outline-dark profile-button" type="submit">Сохранить изменения</button>
-                </div>
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-outline-dark profile-button" type="submit">Сохранить изменения</button>
+                    </div>
                 </form>
             </div>
         </div>
         <div class="col-md-auto">
             <div class="p-3 py-5">
 
-        </div>
+            </div>
 
-    </div>
-<div class="col-md-6 mt-5">
+        </div>
+        <div class="col-md-6 mt-5">
             {% if not orders %}
-                <h3 class="display-6" >У вас пока нет заказов, но вы всегда можете это исправить</h3>
-                {% else %}
+            <h3 class="display-6">У вас пока нет заказов, но вы всегда можете это исправить</h3>
+            {% else %}
             <div class="accordion" id="accordionExample">
 
                 {% for order in orders %}
-                            <div class="accordion-item">
+                <div class="accordion-item">
 
-                                <h2 class="accordion-header" id="heading1">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{order.id}}"
-                                            aria-expanded="false" aria-controls="collapse{{order.id}}">
-                                        Заказ {{order.id}} - {{order.created_timestamp}} | Статус:<strong class="mx-2"> {{order.status}}</strong>
-                                    </button>
-                                </h2>
-                                <div id="collapse{{order.id}}" class="accordion-collapse collapse show " aria-labelledby="heading{{order.id}}" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Товар</th>
-                                                    <th>Количество</th>
-                                                    <th>Цена</th>
-                                                    <th>Общая стоимость</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% in_order_items order as items %}
-                                            {% for item in items %}
+                    <h2 class="accordion-header" id="heading1">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{order.id}}"
+                                aria-expanded="false" aria-controls="collapse{{order.id}}">
+                            Заказ {{order.id}} - {{order.created_timestamp}} | Статус:<strong class="mx-2">
+                            {{order.status}}</strong>
+                        </button>
+                    </h2>
+                    <div id="collapse{{order.id}}" class="accordion-collapse collapse show "
+                         aria-labelledby="heading{{order.id}}" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Товар</th>
+                                    <th>Количество</th>
+                                    <th>Цена</th>
+                                    <th>Общая стоимость</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% in_order_items order as items %}
+                                {% for item in items %}
 
-                                                <tr>
-                                                    <td><a class="text-black" href="{% url 'goods:product' item.product.slug %}">{{item.product.name}}</a></td>
-                                                    <td>{{item.quantity}}</td>
-                                                    <td>{{item.price}} $</td>
-                                                    <td>{{item.product_price}} $</td>
+                                <tr>
+                                    <td><a class="text-black" href="{% url 'goods:product' item.product.slug %}">{{item.product.name}}</a>
+                                    </td>
+                                    <td>{{item.quantity}}</td>
+                                    <td>{{item.price}} $</td>
+                                    <td>{{item.product_price}} $</td>
 
-                                                </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                        <div class="d-flex justify-content-between">
-                                            <p><strong>Итого:</strong></p>
-                                            <p><strong>{{ items.total_price }} $</strong></p>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-between">
+                                <p><strong>Итого:</strong></p>
+                                <p><strong>{{ items.total_price }} $</strong></p>
 
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                {% endfor %}
-                {% endif %}
                         </div>
                     </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
         </div>
+    </div>
 </div>
-</div>
-</div>
+
 {% endblock %}

@@ -1,7 +1,5 @@
 from django import forms
 
-from goods.models import Comment
-
 
 class CommentForm(forms.Form):
     rating = forms.ChoiceField(choices=[

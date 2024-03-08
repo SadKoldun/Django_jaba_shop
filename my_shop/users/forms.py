@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, UsernameField
 from users.models import User
-from django.utils.translation import gettext_lazy as _
 
 
 class UserLoginForm(AuthenticationForm):

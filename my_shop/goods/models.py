@@ -2,8 +2,6 @@ from statistics import mean
 
 from django.db import models
 
-
-# Create your models here.
 from django.urls import reverse
 
 from users.models import User
@@ -46,8 +44,10 @@ class Product(models.Model):
         return f'Товар {self.name} | Количество: {self.quantity}'
 
     def sell_price(self):
-
-        return round(self.price - self.price * self.discount / 100, 2)
+        if self.discount:
+            return round(self.price - self.price * self.discount / 100, 2)
+        else:
+            return self.price
 
 
 class CommentQuerySet(models.QuerySet):
@@ -71,6 +71,7 @@ class Comment(models.Model):
         db_table = 'comment'
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
+        ordering = ['-created_timestamp']
 
     def __str__(self):
         return f'{self.user.username} | {self.comment_text[:30]} | {self.created_timestamp}'

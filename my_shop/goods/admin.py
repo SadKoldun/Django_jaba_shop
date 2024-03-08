@@ -1,8 +1,6 @@
 from django.contrib import admin
 from goods.models import Category, Product, Comment
 
-# Register your models here.
-
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

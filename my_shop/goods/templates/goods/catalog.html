@@ -2,176 +2,178 @@
 {% load static %}
 {% load goods_tags %}
 {% block header %}
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-1">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Frog shop</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Найди свою жабу</p>
-                </div>
-            </div>
-        </header>
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-1">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Frog shop</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Найди свою жабу</p>
+        </div>
+    </div>
+</header>
 {% endblock %}
 
 {% block content %}
 <div class="dropdown ms-5">
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Фильтр
-  </button>
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Фильтр
+    </button>
     <form action="{% if request.GET.q %}
             {% url 'goods:search' %}
             {% else %}
             {% url 'goods:catalog' 'all' %}{% endif %}" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
-                <div class="form-check text-white mx-3">
-                    {% if request.GET.on_sale == 'on' %}
-                        <input class="form-check-input" type="checkbox" name="on_sale" id="flexCheckDefault" value="on" checked>
-                    {% else %}
-                        <input class="form-check-input" type="checkbox" name="on_sale" id="flexCheckDefault" value="on">
-                    {% endif %}
+        <div class="form-check text-white mx-3">
+            {% if request.GET.on_sale == 'on' %}
+            <input class="form-check-input" type="checkbox" name="on_sale" id="flexCheckDefault" value="on" checked>
+            {% else %}
+            <input class="form-check-input" type="checkbox" name="on_sale" id="flexCheckDefault" value="on">
+            {% endif %}
 
-                    {% if   request.GET.q %}
-                        <input type="hidden" name="q" value="{{request.GET.q}}">
-                    {% endif %}
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Товары по акции
-                    </label>
-                </div>
-                <p class="text-white mx-3 mt-3">Сортировать:</p>
-                <div class="form-check text-white mx-3">
-                    {% if not request.GET.order_by or request.GET.order_by == 'default' %}
-                    <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default" checked>
-                    {% else %}
-                    <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default">
-                    {% endif %}
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        По умолчанию
-                    </label>
-                </div>
-                <div class="form-check text-white mx-3">
-                    {% if request.GET.order_by == 'price' %}
-                    <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price" checked>
-                    {% else %}
-                    <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price">
-                    {% endif %}
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        По возрастанию
-                    </label>
-                </div>
-                <div class="form-check text-white mx-3">
-                    {% if request.GET.order_by == '-price' %}
-                    <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault3" value="-price" checked>
-                    {% else %}
-                    <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault3" value="-price">
-                    {% endif %}
-                    <label class="form-check-label" for="flexRadioDefault3">
-                        По убыванию
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-primary mx-3 mt-3">Применить</button>
-            </form>
+            {% if request.GET.q %}
+            <input type="hidden" name="q" value="{{request.GET.q}}">
+            {% endif %}
+            <label class="form-check-label" for="flexCheckDefault">
+                Товары по акции
+            </label>
         </div>
-
+        <p class="text-white mx-3 mt-3">Сортировать:</p>
+        <div class="form-check text-white mx-3">
+            {% if not request.GET.order_by or request.GET.order_by == 'default' %}
+            <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default" checked>
+            {% else %}
+            <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default">
+            {% endif %}
+            <label class="form-check-label" for="flexRadioDefault1">
+                По умолчанию
+            </label>
+        </div>
+        <div class="form-check text-white mx-3">
+            {% if request.GET.order_by == 'price' %}
+            <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price" checked>
+            {% else %}
+            <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price">
+            {% endif %}
+            <label class="form-check-label" for="flexRadioDefault2">
+                По возрастанию
+            </label>
+        </div>
+        <div class="form-check text-white mx-3">
+            {% if request.GET.order_by == '-price' %}
+            <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault3" value="-price" checked>
+            {% else %}
+            <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault3" value="-price">
+            {% endif %}
+            <label class="form-check-label" for="flexRadioDefault3">
+                По убыванию
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary mx-3 mt-3">Применить</button>
+    </form>
+</div>
 
 
 </div>
 {% if request.GET.q %}
-        <h3 class="mt-4 text-center fs-1">Результат поиска по запросу: "{{request.GET.q }}"</h3>
-        {% if not goods %}
-        <link rel="stylesheet" href="{% static 'deps/css/my_footer_css.css' %}">
-        <h2 class="mt-4 text-center"> Nothing here ): </h2>
-        {% endif %}
-        {% endif %}
-        <div class="container px-4 px-lg-5 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                {% for product in goods %}
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
+<h3 class="mt-4 text-center fs-1">Результат поиска по запросу: "{{request.GET.q }}"</h3>
+{% if not goods %}
+<link rel="stylesheet" href="{% static 'deps/css/my_footer_css.css' %}">
+<h2 class="mt-4 text-center"> Nothing here ): </h2>
+{% endif %}
+{% endif %}
+<div class="container px-4 px-lg-5 mt-5">
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        {% for product in goods %}
+        <div class="col mb-5">
+            <div class="card h-100">
+                <!-- Product image-->
+                {% if product.discount %}
+                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">-
+                    {{product.discount}}%
+                </div>
+                {% endif %}
+                {%if product.image%}
+                <img class="card-img-center" src="{{product.image.url}}" alt="..."/>
+                {% else %}
+                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..."/>
+                {% endif %}
+
+                <!-- Product details-->
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <!-- Product name-->
+                        <h5 class="fw-bolder"><a href="{% url 'goods:product' product.slug%}" class="link-dark">
+                            {% autoescape off %}
+                            {% if product.headline %}
+                            {{product.headline}}
+                            {% else %}
+                            {{product.name}}
+                            {% endif %}
+                            {% endautoescape %}
+                        </a></h5>
+                        <!-- Product reviews-->
+                        <!--                                <div class="d-flex justify-content-center small text-warning mb-2">-->
+                        <!--                                    <div class="bi-star-fill"></div>-->
+                        <!--                                    <div class="bi-star-fill"></div>-->
+                        <!--                                    <div class="bi-star-fill"></div>-->
+                        <!--                                    <div class="bi-star-fill"></div>-->
+                        <!--                                    <div class="bi-star-fill"></div>-->
+                        <!--                                </div>-->
+                        <!-- Product price-->
                         {% if product.discount %}
-                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">- {{product.discount}}%</div>
-                        {% endif %}
-                        {%if product.image%}
-                        <img class="card-img-center" src="{{product.image.url}}" alt="..." />
+                        <span class="text-muted text-decoration-line-through">{{ product.price }} $</span>
+                        {{ product.sell_price }}
                         {% else %}
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        {{ product.price }} $
                         {% endif %}
-
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder"><a href="{% url 'goods:product' product.slug%}" class="link-dark">
-                                    {% autoescape off %}
-                                    {% if product.headline %}
-                                    {{product.headline}}
-                                    {% else %}
-                                    {{product.name}}
-                                    {% endif %}
-                                    {% endautoescape %}
-                                </a></h5>
-                                <!-- Product reviews-->
-<!--                                <div class="d-flex justify-content-center small text-warning mb-2">-->
-<!--                                    <div class="bi-star-fill"></div>-->
-<!--                                    <div class="bi-star-fill"></div>-->
-<!--                                    <div class="bi-star-fill"></div>-->
-<!--                                    <div class="bi-star-fill"></div>-->
-<!--                                    <div class="bi-star-fill"></div>-->
-<!--                                </div>-->
-                                <!-- Product price-->
-                                {% if product.discount %}
-                                <span class="text-muted text-decoration-line-through">{{ product.price }} $</span>
-                                {{ product.sell_price }}
-                                {% else %}
-                                {{ product.price }} $
-                                {% endif %}
-                                <hr>
-                                {{product.category.name}}
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto add-to-cart"
-                                 href="{% url 'carts:add_cart' %}" data-product-id="{{product.id}}">
-                                {% csrf_token %}
-                                В корзину</a></div>
-                        </div>
-
+                        <hr>
+                        {{product.category.name}}
                     </div>
                 </div>
-                {% endfor %}
+                <!-- Product actions-->
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto add-to-cart"
+                                                href="{% url 'carts:add_cart' %}" data-product-id="{{product.id}}">
+                        {% csrf_token %}
+                        В корзину</a></div>
+                </div>
 
             </div>
         </div>
+        {% endfor %}
+
+    </div>
+</div>
 {% if goods %}
 <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item {% if not goods.has_previous %} disabled {% endif %}">
-                  <a class="page-link" href="{% if goods.has_previous %}
+    <ul class="pagination justify-content-center">
+        <li class="page-item {% if not goods.has_previous %} disabled {% endif %}">
+            <a class="page-link" href="{% if goods.has_previous %}
                   ?{% change_params page=goods.previous_page_number %}
                   {% else %}
                   #
                   {% endif %}"
-                  >
-                      Previous
-                  </a>
-                </li>
-      {% for page in goods.paginator.page_range %}
-    <li class="page-item"><a class="page-link {% if goods.number == page %}active{% endif %}" href="?{% change_params page=page %}">{{ page }}</a></li>
-    {% endfor %}
-    <li class="page-item {% if not goods.has_next %} disabled {% endif %}">
-                  <a class="page-link" href="{% if goods.has_next %}
+            >
+                Previous
+            </a>
+        </li>
+        {% for page in goods.paginator.page_range %}
+        <li class="page-item"><a class="page-link {% if goods.number == page %}active{% endif %}"
+                                 href="?{% change_params page=page %}">{{ page }}</a></li>
+        {% endfor %}
+        <li class="page-item {% if not goods.has_next %} disabled {% endif %}">
+            <a class="page-link" href="{% if goods.has_next %}
                   ?{% change_params page=goods.next_page_number %}
                   {% else %}
                   #
                   {% endif %}"
-                  >Next</a>
-    </li>
-  </ul>
+            >Next</a>
+        </li>
+    </ul>
 </nav>
 {% endif %}
 {% endblock %}
 
 {% block footer %}
-        <footer class="py-5 bg-dark mt-auto">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-        </footer>
+<footer class="py-5 bg-dark mt-auto">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+</footer>
 {% endblock %}

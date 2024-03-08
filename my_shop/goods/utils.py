@@ -1,10 +1,9 @@
 from goods.views import Product
-from django.db.models import Q
+
 from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank, SearchHeadline
 
 
 def q_search(query):
-
     vector = SearchVector('name', 'description')
     query = SearchQuery(query)
 

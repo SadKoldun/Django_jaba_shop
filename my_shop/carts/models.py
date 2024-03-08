@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 from users.models import User
 from goods.models import Product
@@ -15,10 +16,9 @@ class CartQuerySet(models.QuerySet):
 
 
 class Cart(models.Model):
-
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE, verbose_name='Товар')
-    quantity = models.PositiveSmallIntegerField(default=0, verbose_name='Количество')
+    quantity = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1)], verbose_name='Количество')
     session_key = models.CharField(max_length=32, null=True, blank=True)
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 
@@ -26,6 +26,7 @@ class Cart(models.Model):
         db_table = 'cart'
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзины'
+        ordering = ['-created_timestamp']
 
     objects = CartQuerySet.as_manager()
 

@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 # Create your views here.
 from goods.utils import q_search
 from goods.forms import CommentForm
+from .models import Product
 
 
 def catalog(request, cat_slug=None):
@@ -34,7 +35,6 @@ def catalog(request, cat_slug=None):
 
 
 def product(request, product_slug):
-
     product = Product.objects.get(slug=product_slug)
     comments = Comment.objects.filter(product=product)
 
@@ -62,6 +62,3 @@ def product(request, product_slug):
         'comments': comments,
     }
     return render(request, 'goods/product.html', context)
-
-
-

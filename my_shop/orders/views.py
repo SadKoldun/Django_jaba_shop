@@ -7,7 +7,6 @@ from carts.models import Cart
 from orders.models import Order, OrderedItem
 
 
-# Create your views here.
 def create_order(request):
     if request.method == 'POST':
         form = CreateOrderForm(data=request.POST)
@@ -18,7 +17,6 @@ def create_order(request):
                     cart_items = Cart.objects.filter(user=user)
 
                     if cart_items.exists():
-                        # Создать заказ
                         order = Order.objects.create(
                             user=user,
                             phone_number=form.cleaned_data['phone_number'],
@@ -26,7 +24,6 @@ def create_order(request):
                             address=form.cleaned_data['address'],
                             payment_on_get=form.cleaned_data['payment_on_get'],
                         )
-                        # Создать заказанные товары
                         for cart_item in cart_items:
                             product = cart_item.product
                             name = cart_item.product.name
@@ -47,7 +44,6 @@ def create_order(request):
                             product.quantity -= quantity
                             product.save()
 
-                        # Очистить корзину пользователя после создания заказа
                         cart_items.delete()
 
                         return redirect('users:profile')

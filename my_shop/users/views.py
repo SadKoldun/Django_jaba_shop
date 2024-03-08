@@ -1,15 +1,14 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Prefetch
+
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from carts.models import Cart
-from orders.models import Order, OrderedItem
+from orders.models import Order
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from django.contrib import auth, messages
 
 
-# Create your views here.
 def login(request):
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
@@ -75,13 +74,6 @@ def profile(request):
             return redirect(reverse('users:profile'))
     else:
         profile_form = UserProfileForm(instance=request.user)
-
-    # orders = Order.objects.filter(user=request.user).prefetch_related(
-    #      Prefetch(
-    #          "ordereditem_set",
-    #          queryset=OrderedItem.objects.select_related("product"),
-    #      )
-    # ).order_by("-id")
 
     orders = Order.objects.filter(user=request.user).order_by("-id")
     context = {

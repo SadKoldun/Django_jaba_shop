@@ -5,101 +5,96 @@
 {% load cart_tags %}
 
 {% user_carts request as carts %}
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Frog shop</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Frog shop</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}"/>
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body class="d-flex flex-column min-vh-100">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="{% url 'main:index' %}">Frog shop</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'main:index' %}">Главная</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'main:about' %}">О нас</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Товары</a>
-                            <div class="dropdown-menu dropdown-menu-end animate slideIn" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{% url 'goods:catalog' 'all' %}">Все товары</a>
-                                <hr class="dropdown-divider" />
-                                {% all_cats as jabas %}
-                                {% for jaba in jabas %}
-                                <a class="dropdown-item" href="{% url 'goods:catalog' jaba.slug %}">{{jaba.name}}</a>
-                                {% endfor %}
-                            </div>
-                        </li>
-                        {% if not user.is_authenticated %}
-                        <li>
-                            <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="{% url 'main:index' %}">Frog shop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'main:index' %}">Главная</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'main:about' %}">О нас</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">Товары</a>
+                    <div class="dropdown-menu dropdown-menu-end animate slideIn" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'goods:catalog' 'all' %}">Все товары</a>
+                        <hr class="dropdown-divider"/>
+                        {% all_cats as jabas %}
+                        {% for jaba in jabas %}
+                        <a class="dropdown-item" href="{% url 'goods:catalog' jaba.slug %}">{{jaba.name}}</a>
+                        {% endfor %}
+                    </div>
+                </li>
+                {% if not user.is_authenticated %}
+                <li>
+                    <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
 
-                        </li>
-                        {% else %}
-                        <li>
-                            <a class="nav-link" href="{% url 'users:profile' %}">Личный кабинет</a>
-                        </li>
-                        {% if user.is_superuser %}
-                        <li>
-                            <a class="nav-link" href="{% url 'admin:index' %}">Администрирование</a>
-                        </li>
-                        {% endif %}
-                        <li>
-                            <a class="nav-link" href="{% url 'users:logout' %}">Выход</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                      <form class="d-flex" role="search" method="get" action="{% url 'goods:search' %}">
-                      <input class="form-control me-2" name="q" type="search" placeholder="Найдите жабу" aria-label="Search">
-                      <button class="btn btn-outline-success me-2" type="submit">Поиск</button>
-                        </form>
-                    <div class="vr me-2"></div>
-<!--                    <form class="d-flex" action="{% url 'carts:current_cart' %}">-->
+                </li>
+                {% else %}
+                <li>
+                    <a class="nav-link" href="{% url 'users:profile' %}">Личный кабинет</a>
+                </li>
+                {% if user.is_superuser %}
+                <li>
+                    <a class="nav-link" href="{% url 'admin:index' %}">Администрирование</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a class="nav-link" href="{% url 'users:logout' %}">Выход</a>
+                </li>
+                {% endif %}
+            </ul>
+            <form class="d-flex" role="search" method="get" action="{% url 'goods:search' %}">
+                <input class="form-control me-2" name="q" type="search" placeholder="Найдите жабу" aria-label="Search">
+                <button class="btn btn-outline-success me-2" type="submit">Поиск</button>
+            </form>
+            <div class="vr me-2"></div>
 
-                     <a class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                           <i class="bi-cart-fill me-1">
-
-                            </i>
-                            Корзина
-                           <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart-count">{{ carts.total_quantity }}</span>
-                        </a>
-
-                        {% include 'carts/modal_cart.html' %}
+            {% include 'carts/modal_cart.html' %}
 
 
-                </div>
-            </div>
+        </div>
+    </div>
 
-        </nav>
-        <!-- Header-->
-        {% block header %}
+</nav>
+<!-- Header-->
+{% block header %}
 
-        {% endblock %}
-        <section class="py-1">
-        <!-- Section-->
+{% endblock %}
+<section class="py-1">
+    <!-- Section-->
 
-        {% block content %}
-        {% endblock %}
-        </section>
-        <!-- Footer-->
-        {% block footer %}
-        {% endblock %}
+    {% block content %}
+    {% endblock %}
+</section>
+<!-- Footer-->
+{% block footer %}
+{% endblock %}
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="{% static 'js/scripts.js' %}"></script>
-    </body>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="{% static 'js/scripts.js' %}"></script>
+</body>
 </html>

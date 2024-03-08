@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 from goods.models import Product
 from users.models import User
 
@@ -17,8 +16,9 @@ class OrderedItemQuerySet(models.QuerySet):
 
 
 class Order(models.Model):
-
-    user = models.ForeignKey(to=User, on_delete=models.SET_DEFAULT, blank=True, null=True, verbose_name='Пользователь', default=None)
+    user = models.ForeignKey(to=User, on_delete=models.SET_DEFAULT,
+                             blank=True, null=True, verbose_name='Пользователь',
+                             default=None)
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name='Дата оформления')
     phone_number = models.CharField(max_length=15, verbose_name='Номер телефона')
     delivery = models.BooleanField(default=False, verbose_name='Доставка')
@@ -37,7 +37,6 @@ class Order(models.Model):
 
 
 class OrderedItem(models.Model):
-
     order = models.ForeignKey(to=Order, on_delete=models.CASCADE, verbose_name='Заказ')
     product = models.ForeignKey(to=Product, on_delete=models.SET_DEFAULT, null=True, verbose_name='Товар', default=None)
     name = models.CharField(max_length=150, verbose_name='Название')
